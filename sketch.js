@@ -32,9 +32,4 @@ function draw() {
 }
 
 
-function keyPressed(){
 
-  //For moving and changing animation write code here
-
-
-}
