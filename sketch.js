@@ -1,31 +1,28 @@
-var tom, jerry;
-var catI, catI2, catI3;
-var mouseI, mouseI2, mouseI3;
-var backgroundI, canvas;
-
+var cat, mouse;
+var catI, mouseI
+var backgroundI;
 function preload() {
-    //images and animation added here
-    backgroundI = loadImage("images/garden.png");
-    catI = loadAnimation("images/cat1.png");
-    catI2 = loadAnimation("images/cat2.png", "images/cat3.png");
-    catI3 = loadAnimation("images/cat4.png");
-    mouseI = loadAnimation("images/mouse1.png");
-    mouseI2 = loadAnimation("images/mouse2.png", "images/mouse3.png");
-    mouseI3 = loadAnimation("images/mouse4.png");
+    //load the images here
+    backgroundI= loadImage("garden.png");
+    catI = loadAnimation("cat1.png");
+    catI2 = loadAnimation("cat2.png", "cat3.png");
+    catI3 = loadAnimation("cat4.png");
+    mouseI = loadAnimation("mouse1.png");
+    mouseI2 = loadAnimation("mouse2.png", "mouse3.png");
+    mouseI3 = loadAnimation("mouse4.png");
 
 }
 
 function setup(){
-    canvas = createCanvas(800,600);
-
+    createCanvas(1000,800);
+    mouse = createSprite(100,600);
+    cat = createSprite(800,600,);
+    cat.addAnimation("catsleeping",catI)
+    mouse.addAnimation("mousestanding",mouseI)
+    mouse.scale = 0.15
+    
+    cat.scale = 0.2
     //create tom and jerry sprites here
-    tom = createSprite(750, 500);
-    tom.addAnimation("tomSleeping", catI);
-    tom.scale = 0.2;
-
-    jerry = createSprite(200, 500);
-    jerry.addAnimation("jerryStanding", mouseI);
-    jerry.scale = 0.15;
 
 }
 
@@ -33,32 +30,34 @@ function draw() {
 
     background(backgroundI);
     
-   
-    //if tom and jerry collide
-    if(tom.x - jerry.x < (tom.width - jerry.width)/2)
-    { 
-        tom.velocityX=0;
-        tom.addAnimation("tomLastImage", catI3);
-        tom.x =300;
-        tom.scale=0.2;
-        tom.changeAnimation("tomLastImage");
-        jerry.addAnimation("jerryLastImage", mouseI3);
-        jerry.scale=0.15;
-        jerry.changeAnimation("jerryLastImage");
-    }  
+    if((cat.x-mouse.x)<(cat.width-mouse.width)/2){
+       cat.velocityX=0
+       cat.addAnimation("catlastimage",catI3)
+       cat.x=300
+       cat.scale = 0.2;
+       cat.changeAnimation("catlastimage");
+       mouse.addAnimation("mouselastimage",mouseI3)
+       mouse.scale = 0.15
+       mouse.changeAnimation("mouselastimage")
+    }
 
+
+    //Write condition here to evalute if tom and jerry collide
+     keyPressed();
     drawSprites();
 }
 
-function keyPressed(){
-
-    if(keyCode === LEFT_ARROW){
-        tom.velocityX = -5; 
-        tom.addAnimation("tomRunning", catI2);
-        tom.changeAnimation("tomRunning");
-        
-        jerry.addAnimation("jerryTeasing", mouseI2);
-        jerry.frameDelay = 25;
-        jerry.changeAnimation("jerryTeasing");
+function keyPressed() {
+    if(keyCode===LEFT_ARROW){
+        cat.velocityX =-5;
+        cat.addAnimation("catrunning",catI2)
+        cat.scale =0.2
+        cat.changeAnimation("catrunning")
+        mouse.addAnimation("mouseteasing",mouseI2)
+        mouse.scale = 0.15
+        mouse.changeAnimation("mouseteasing")
+        mouse.framedelay = 25 
     }
 }
+
+
